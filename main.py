@@ -81,15 +81,12 @@ def main(proj_directory):
             except PackageNotFoundError:
                 logging.warning(
                     f'Could not find: `{module}`! Will attempt to search '
-                    f'manually and pick the best candidate...'
-                )
+                    f'manually and pick the best candidate...')
                 lookup_res = os.popen(
                     f'pip list | grep {module}').read().rstrip().split(' ')
                 if lookup_res[0] != '':
-                    logging.info(
-                        f'Found `{lookup_res[0]}`! Appending to the '
-                        f'requirements file...'
-                    )
+                    logging.info(f'Found `{lookup_res[0]}`! Appending to the '
+                                 f'requirements file...')
                     req.update({lookup_res[0]: lookup_res[-1]})
                 else:
                     logging.warning(
@@ -103,8 +100,7 @@ def main(proj_directory):
         logging.warning(
             'The name to import the package and the name to install it might '
             'be different... Add these package(s) to the requirements file '
-            'manually.'
-        )
+            'manually.')
     return req
 
 
@@ -113,7 +109,10 @@ if __name__ == '__main__':
                         format='%(levelname)s | %(message)s')
     parser = argparse.ArgumentParser(
         description='Create a requirements.txt file from a project directory')
-    parser.add_argument('path', type=str, help='Path to the project directory')
+    parser.add_argument('-p',
+                        '--path',
+                        type=str,
+                        help='Path to the project directory')
     parser.add_argument('-s',
                         '--specifier',
                         default='>=',
